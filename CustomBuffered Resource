@@ -1,0 +1,40 @@
+package ResourcePpt;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class CustomBufferedReader extends BufferedReader {
+
+    public CustomBufferedReader(FileReader reader) {
+        super(reader);
+    }
+
+    @Override
+    public void close() throws IOException {
+        try {
+            super.close(); // Close the underlying BufferedReader
+            System.out.println("CustomBufferedReader closed.");
+            // Additional cleanup or custom logic if needed
+        } catch (IOException e) {
+            // Handle exceptions if necessary
+            System.err.println("Error closing CustomBufferedReader: " + e.getMessage());
+            throw e; // Optionally rethrow the exception
+        }
+    }
+
+    public static void main(String[] args) {
+        String filePath = "/home/himanshu/SirionTraining/IOFile.txt";
+        
+        try (FileReader fileReader = new FileReader(filePath);
+             CustomBufferedReader customReader = new CustomBufferedReader(fileReader)) {
+            
+            String line;
+            while ((line = customReader.readLine()) != null) {
+                System.out.println(line);
+            }
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
