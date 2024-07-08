@@ -1,0 +1,25 @@
+package ResourcePpt;
+ import java.io.*;
+public class TryWithResource{
+     public static void main(String[]args)
+     {
+    	  String filePath = "/home/himanshu/SirionTraining/IOFile.txt";
+          
+          // Try-with-resources to ensure the FileWriter is closed automatically
+//    	  long startTime = System.currentTimeMillis();
+    	  
+    	  
+    	  try (BufferedReader b
+    	             = new BufferedReader(new FileReader(filePath))) {
+    	            String s;
+    	            while ((s = b.readLine()) != null) {
+    	                System.out.println(s);
+    	            }
+    	        }
+    	        catch (IOException e) {
+    	            e.printStackTrace();
+    	        }
+    	 
+    	  /// try to use with the custom buffer   to show ;
+     }
+}
