@@ -1,0 +1,43 @@
+package ResourcePpt;
+
+
+
+
+// Try to commenting the processSomething  to show that   e catch the try-with-resource excpetion
+//when no exception inside the Try-with-process block
+
+
+class ExceptionalResource implements AutoCloseable {
+
+	public void processSomething() {
+		throw new IllegalArgumentException("Thrown from processSomething()");
+	}
+
+	@Override
+	public void close() throws Exception {
+		throw new NullPointerException("Thrown from close()");
+	}
+}
+
+public class Surpessed {
+
+	public static void demoExceptionalResource() throws Exception {
+		try (ExceptionalResource exceptionalResource = new ExceptionalResource()) {
+			exceptionalResource.processSomething();
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		try {
+		    demoExceptionalResource();
+		} catch (Exception e) {
+		   
+		    System.out.println("Thrown from processSomething()"+e.getMessage());
+		    System.out.println("Thrown from close()"+ e.getSuppressed()[0].getMessage());
+		}
+
+	}
+
+}
