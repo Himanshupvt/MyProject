@@ -1,0 +1,53 @@
+package ResourcePpt;
+
+import java.io.*;
+
+class Printer1 implements AutoCloseable {
+
+	public Printer1() {
+		System.out.println("printer1 is ready");
+	}
+
+	public void doSomething() {
+		System.out.println("printer1 is doing work");
+	}
+
+	@Override
+	public void close() throws Exception {
+		System.out.println("Printer 1 finished his work");
+	}
+}
+
+class Printer2 implements AutoCloseable {
+
+	public Printer2() {
+		System.out.println("printer2 is ready");
+	}
+
+	public void doSomething() {
+		System.out.println("printer2 is doing work");
+	}
+
+	@Override
+	public void close() throws Exception {
+		System.out.println("Printer 2 finished his work");
+	}
+}
+
+public class OrderClosingResource {
+
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+
+		try (Printer1 p1 = new Printer1(); Printer2 p2 = new Printer2()) {
+
+			p2.doSomething();
+			p1.doSomething();
+		}
+		
+		
+		System.out.println("Shows the reverse order of closing ");
+
+	}
+
+}
